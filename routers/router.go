@@ -8,5 +8,6 @@ import (
 func init() {
 	//router:路由
 	//Router打一个参数为请求的路径，请求的路径必须保持唯一
+	beego.Router("/register",&controllers.RegisterController{})
     beego.Router("/", &controllers.MainController{})
 }

@@ -72,4 +72,5 @@ func (c *MainController) Post() {
 	c.Ctx.WriteString("用户名是："+person.User)
 
 
+
 }
