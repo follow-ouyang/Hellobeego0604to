@@ -13,7 +13,10 @@ type QueryuserController struct {
 }
 
 func (q *QueryuserController) Post() {
+
+
 	//解析前端提交的数据
+	//接收数据
 	dataBytes,err := ioutil.ReadAll(q.Ctx.Request.Body)
 	if err != nil {
 		result := models.Result{
@@ -25,19 +28,58 @@ func (q *QueryuserController) Post() {
 		q.ServeJSON()
 		return
 	}
-
-	var monicker models.Monicker
-	err = json.Unmarshal(dataBytes,&monicker)
+	//fmt.Println(dataBytes)
+	var name models.Names
+	err = json.Unmarshal(dataBytes,&name)
 	if err != nil {
 		result := models.Result{
 			COde:    0,
-			Message: "数据解析失败，请重试",
+			Message: "数据解析失败，请重新输入后重试...",
 			Data:    nil,
 		}
 		q.Data["json"] = &result
 		q.ServeJSON()
-		fmt.Println(err.Error())
 		return
 	}
+	fmt.Println("用户名是：",name.User)
+	q.Ctx.WriteString("用户名是："+name.User)
+	
+
+	//var message models.User
+	//err = json.Unmarshal(dataBytes,&message)
+	//if err != nil {
+	//	result := models.Result{
+	//		COde:    0,
+	//		Message: "数据解析失败，请重试",
+	//		Data:    nil,
+	//	}
+	//	q.Data["json"] = &result
+	//	q.ServeJSON()
+	//	return
+	//}
+
+	//row,err := db_mysql.AddUser(message)
+	//if err != nil {
+	//	result := models.Result{
+	//		COde:    0,
+	//		Message: "用户信息注册失败，请重试。。。",
+	//		Data:    nil,
+	//	}
+	//	q.Data["json"] = &result
+	//	q.ServeJSON()
+	//	return
+	//}
+	//fmt.Println(row)
+	//
+	//md5Hash := md5.New()
+	//md5Hash.Write([]byte(message.Password))
+	//message.Password = hex.EncodeToString(md5Hash.Sum(nil))
+	//result := models.Result{
+	//	COde:    1,
+	//	Message: "恭喜用户信息注册成功",
+	//	Data:    message,
+	//}
+	//q.Data["json"] = &result
+	//q.ServeJSON()
 
 }

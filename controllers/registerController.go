@@ -6,8 +6,8 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"github.com/astaxie/beego"
-	"golang.org/x/tools/go/ssa/interp/testdata/src/fmt"
 	"io/ioutil"
 )
 
@@ -29,6 +29,7 @@ func (r *RegisterController) Post() {
 		r.ServeJSON()
 		return
 	}
+	//fmt.Println(dataBytes)
 	var user models.User
 	err = json.Unmarshal(dataBytes,&user)
 	if err != nil {
