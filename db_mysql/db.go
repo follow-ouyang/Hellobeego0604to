@@ -58,3 +58,20 @@ func AddUser(u models.User) (int64,error) {
 	fmt.Println(row)
 	return row, nil
 }
+
+func QueryUser() ([]models.User,error) {
+	rows,err := Db.Query("select *from text")
+	if err != nil {
+		return nil,err
+	}
+	users := make([]models.User,0)
+	for rows.Next() {
+		var user models.User
+		rows.Scan(&user.Name)
+		if err != nil {
+			return nil,err
+		}
+		users = append(users,user)
+	}
+	return users,err
+}
