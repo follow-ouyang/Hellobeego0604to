@@ -59,19 +59,17 @@ func AddUser(u models.User) (int64,error) {
 	return row, nil
 }
 
-func QueryUser() ([]models.User,error) {
-	rows,err := Db.Query("select *from text")
+func QuerMoviesNum()(string,error){
+	//1、打开并连接数据库
+	//database,err := OpenDatabase()
+	//if err != nil {
+	//	return 0,err
+	//}
+	rows := Db.QueryRow("select count(name) nameuser from text ")
+	var nameuser string
+	err := rows.Scan(&nameuser)
 	if err != nil {
-		return nil,err
+		return 0,err
 	}
-	users := make([]models.User,0)
-	for rows.Next() {
-		var user models.User
-		rows.Scan(&user.Name)
-		if err != nil {
-			return nil,err
-		}
-		users = append(users,user)
-	}
-	return users,err
+	return nameuser,nil
 }

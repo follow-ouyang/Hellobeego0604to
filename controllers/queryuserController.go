@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"HelloBeego0604to/db_mysql"
 	"HelloBeego0604to/models"
 	"encoding/json"
 	"fmt"
@@ -43,7 +44,11 @@ func (q *QueryuserController) Post() {
 	}
 	fmt.Println("用户名是：",name.User)
 	q.Ctx.WriteString("用户名是："+name.User)
-	
+
+	query,err := db_mysql.QuerMoviesNum()
+	if err != nil {
+		fmt.Println()
+	}
 
 	//var message models.User
 	//err = json.Unmarshal(dataBytes,&message)
